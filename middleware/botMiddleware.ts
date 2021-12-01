@@ -25,4 +25,6 @@ export const botMiddleware = async (
   _next: NextFunction
 ) => {
   _next();
+  const chatId = req.body.message.chat.id;
+  const message = req.body.message.text.toLocaleLowerCase();
 };
