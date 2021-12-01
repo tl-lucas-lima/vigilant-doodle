@@ -3,6 +3,7 @@ import { Request } from "express";
 import {
   TelegramMessageResponse,
 } from "../models/TelegramMessageResponse";
+import { deets } from "./deets";
 import { fallback } from "./fallback";
 import { help } from "./help";
 import { register } from "./register";
@@ -24,6 +25,8 @@ export async function commands(req: RequestBody<TelegramMessageResponse>) {
       return topup(req);
     case "/register":
       return register(req);
+    case "/deets":
+      return deets(req)
     default:
       return fallback(req);
   }
