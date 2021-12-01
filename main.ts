@@ -1,5 +1,4 @@
 import express from "express";
-import ngrok from "ngrok";
 import { Constants } from "./common/constants";
 import { botMiddleware } from "./middleware/botMiddleware";
 import { apiClient } from "./services/client";
@@ -28,9 +27,7 @@ const botConnect = async (serverUrl: string) => {
 const init = async () => {
   try {
     await client.connect();
-    // Temporary generates a ngrok uri to be set as the webhook uri.
-    const serverUrl = await ngrok.connect(Port);
-    console.log(`Webhook URI generated: ${serverUrl}`);
+    const serverUrl = "https://truehack-pay-chat.herokuapp.com";
 
     app.get("/", (req, res) => {
       res.send("👋🏼 Hello from the TrueLayer_Bot");
@@ -47,7 +44,7 @@ const init = async () => {
       await botConnect(serverUrl);
     });
   } catch (error) {
-    throw new Error("Failed to initialise ngrok.");
+    throw new Error("Failed to start server");
   }
 };
 
