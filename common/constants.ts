@@ -4,6 +4,29 @@ dotenv.config();
 
 const { TELEGRAM_BOT_TOKEN, PORT } = process.env;
 
+const demo_users = { 
+  csuryapandian: {
+    account_number: "64498298",
+    sort_code: "040075",
+  },
+  lucalima: {
+    account_number: "10220690",
+    sort_code: "040004",
+  },
+  aarti_p: {
+    account_number: "57230060",
+    sort_code: "309664",
+  },
+  kieranallan: {
+    account_number: "49633293",
+    sort_code: "040004",
+  },
+  carojohn24: {
+    account_number: "11616258",
+    sort_code: "040004",
+  },
+};
+
 export class Constants {
   public static TelegramBotToken: string = TELEGRAM_BOT_TOKEN || "";
   public static TelegramAPI: string = `https://api.telegram.org/bot${this.TelegramBotToken}`;
