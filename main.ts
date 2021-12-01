@@ -28,6 +28,10 @@ const init = async () => {
     const serverUrl = await ngrok.connect(Port);
     console.log(`Webhook URI generated: ${serverUrl}`);
 
+    app.get("/", (req, res) => {
+      res.send("👋🏼 Hello from the TrueLayer_Bot");
+    });
+
     app.post(WebhookURI, botMiddleware, async (_req, res) => {
       return res.send().status(200);
     });
