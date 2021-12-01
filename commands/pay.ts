@@ -1,4 +1,5 @@
 import { RequestBody } from ".";
+import { Constants } from "../common/constants";
 import { getChatId } from "../common/getChatId";
 import { sendMessage } from "../common/sendMessage";
 import { TelegramMessageResponse } from "../models/TelegramMessageResponse";
@@ -13,11 +14,15 @@ export async function pay(req: RequestBody<TelegramMessageResponse>) {
   const amount = message.match(/£\d+[\.]?\d{2}/);
   const beneficiary = message.match(/(?!@)\w+$/);
 
-  if (message.includes(" to ") && beneficiary) {
-    console.log(beneficiary);
+  if (beneficiary && amount) {
+    const user = Constants.demoUsers.find((u) => u.username === beneficiary[0]);
+
+    console.log(user);
+
+    console.log(beneficiary[0]);
     await sendMessage(
       chatId,
-      `Understood.🤑\nInitialising payment...\n- Amount: ${amount}\n To: ${beneficiary}`
+      `Understood.🤑\nInitialising payment...\n- Amount: ${amount[0]}\n- To: @${beneficiary[0]}`
     );
 
     setTimeout(async () => {

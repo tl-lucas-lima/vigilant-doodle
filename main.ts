@@ -3,14 +3,13 @@ import ngrok from "ngrok";
 import { Constants } from "./common/constants";
 import { botMiddleware } from "./middleware/botMiddleware";
 import { apiClient } from "./services/client";
-import { createClient } from 'redis';
+import { createClient } from "redis";
 
 const app = express();
 
 export const client = createClient();
 
 const { Port, TelegramAPI, WebhookURI } = Constants;
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -27,8 +26,8 @@ const botConnect = async (serverUrl: string) => {
 };
 
 const init = async () => {
-  await client.connect()
   try {
+    await client.connect();
     // Temporary generates a ngrok uri to be set as the webhook uri.
     const serverUrl = await ngrok.connect(Port);
     console.log(`Webhook URI generated: ${serverUrl}`);

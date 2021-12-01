@@ -1,4 +1,3 @@
-
 import { Request } from "express";
 import {
   TelegramMessageResponse,
@@ -17,6 +16,11 @@ export interface RequestBody<T> extends Request {
 
 export async function commands(req: RequestBody<TelegramMessageResponse>) {
   const message = req.body.message.text.toLocaleLowerCase();
+
+  if (/^[\/]?pay\s£\d+[\.]?\d{2}\sto\s@\w+$/g.test(message)) {
+    return pay(req);
+  }
+
   switch (message) {
     case "/start":
       return start(req);
