@@ -3,6 +3,10 @@ import { client } from "../main";
 import { TelegramMessageResponse } from "../models/TelegramMessageResponse";
 
 export async function getState(req: RequestBody<TelegramMessageResponse>) {
-  const x = await client.get(`state:${req.body.message.chat.id}`);
-  return JSON.parse(x ?? "");
+  try {
+    const x = await client.get(`state:${req.body.message.from.id}`);
+    return JSON.parse(x ?? "");
+  } catch (e) {
+    return ""
+  }
 }

@@ -4,6 +4,7 @@ import { getChatId } from "../common/getChatId";
 import { getState } from "../common/getState";
 import { sendMessage } from "../common/sendMessage";
 import { setAccountNumber } from "../common/setAccountNumber";
+import { setSortCode } from "../common/setSortCode";
 import { setState } from "../common/setState";
 import { client } from "../main";
 import { Flows } from "../models/Flows";
@@ -23,7 +24,7 @@ export async function fallback(req: RequestBody<TelegramMessageResponse>) {
         `Please enter your sort-code in the format xx-xx-xx`
       );
     case "sort_code":
-      await client.set("sort_code:", JSON.stringify(req.body.message.text));
+      await setSortCode(req);
       await setState(req, null);
       return await sendMessage(
         getChatId(req),
