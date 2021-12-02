@@ -12,7 +12,7 @@ export class Constants {
   public static PaymentServiceURI: string = `https://tl-lucas-mobile-backend.herokuapp.com`;
   public static Platform: string = PLATFORM || "";
   public static RedisUrl: string = REDIS_URL || "";
-  public static ServerUrl: string = SERVER_URL || "https://truehack-pay-chat.herokuapp.com"
+  public static ServerUrl: string = SERVER_URL || "https://truehack-pay-chat.herokuapp.com";
   public static demoUsers = [
     {
       username: "csuryapandian",
@@ -30,7 +30,7 @@ export class Constants {
       sort_code: "309664",
     },
     {
-      username: "kieranalle",
+      username: "kieranallen",
       account_number: "10220690",
       sort_code: "040004",
     },
@@ -39,6 +39,11 @@ export class Constants {
       account_number: "11616258",
       sort_code: "040004",
     },
+    {
+      username: "merchant",
+      account_number: "64498298",
+      sort_code: "040075",
+    }
   ];
 }
 
