@@ -14,8 +14,8 @@ export async function getDeets(
     const user = Constants.demoUsers.find((user) => user.username === username);
 
     return {
-      accountNumber: accountNumber || user?.account_number,
-      sortCode: sortCode || user?.sort_code,
+      accountNumber: user?.account_number || accountNumber,
+      sortCode: user?.sort_code || sortCode,
     };
   } catch (e) {
     return {
