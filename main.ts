@@ -29,7 +29,12 @@ const init = async () => {
   try {
     await client.connect();
     // Temporary generates a ngrok uri to be set as the webhook uri.
-    const serverUrl = await ngrok.connect(Port);
+    let serverUrl: string;
+    if (Constants.Platform === "HEROKU") {
+      serverUrl = "https://truelayer-bot.herokuapp.com";
+    } else {
+      serverUrl = await ngrok.connect(Port);
+    }
     console.log(`Webhook URI generated: ${serverUrl}`);
 
     app.get("/", (req, res) => {
