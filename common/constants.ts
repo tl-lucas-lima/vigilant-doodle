@@ -9,6 +9,7 @@ export class Constants {
   public static TelegramAPI: string = `https://api.telegram.org/bot${this.TelegramBotToken}`;
   public static Port: number = Number(PORT) || 5000;
   public static WebhookURI: string = `/webhook/${this.TelegramBotToken}`;
+  public static PaymentServiceURI: string = `https://tl-lucas-mobile-backend.herokuapp.com`;
   public static demoUsers = [
     {
       username: "csuryapandian",
@@ -27,7 +28,7 @@ export class Constants {
     },
     {
       username: "kieranallen",
-      account_number: "49633293",
+      account_number: "10220690",
       sort_code: "040004",
     },
     {
