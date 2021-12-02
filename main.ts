@@ -1,5 +1,4 @@
 import express from "express";
-import ngrok from "ngrok";
 import { Constants } from "./common/constants";
 import { botMiddleware } from "./middleware/botMiddleware";
 import { apiClient } from "./services/client";
@@ -7,9 +6,11 @@ import { createClient } from "redis";
 
 const app = express();
 
-export const client = createClient();
+export const client = createClient({
+  url: Constants.RedisUrl,
+});
 
-const { Port, TelegramAPI, WebhookURI } = Constants;
+const { Port, TelegramAPI, WebhookURI, ServerUrl } = Constants;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -27,14 +28,21 @@ const botConnect = async (serverUrl: string) => {
 
 const init = async () => {
   try {
-    await client.connect();
     // Temporary generates a ngrok uri to be set as the webhook uri.
-    const serverUrl = await ngrok.connect(Port);
+    let serverUrl: string;
+    if (Constants.Platform === "HEROKU") {
+      serverUrl = ServerUrl;
+    } else {
+      const { default: ngrok } = await import("ngrok");
+      serverUrl = await ngrok.connect(Port);
+    }
     console.log(`Webhook URI generated: ${serverUrl}`);
 
     app.get("/", (req, res) => {
       res.send("👋🏼 Hello from the TrueLayer_Bot");
     });
+
+    await client.connect();
 
     app.post(WebhookURI, botMiddleware, async (_req, res) => {
       return res.send().status(200);
@@ -47,7 +55,7 @@ const init = async () => {
       await botConnect(serverUrl);
     });
   } catch (error) {
-    throw new Error("Failed to initialise ngrok.");
+    throw new Error("Failed to start server");
   }
 };
 
