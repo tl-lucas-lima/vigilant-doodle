@@ -1,7 +1,7 @@
 import { RequestBody } from ".";
 import { getChatId } from "../common/getChatId";
 import { getDeets } from "../common/getDeets";
-import { sendMessage, sendWanker } from "../common/sendMessage";
+import { sendFail, sendMessage, sendWanker } from "../common/sendMessage";
 import { TelegramMessageResponse } from "../models/TelegramMessageResponse";
 import { createPayment, getPayment } from "../services/paymentService";
 
@@ -12,7 +12,7 @@ async function pollPayment(id: string, chatId: number) {
     if (status === "succeeded" || status === "authorized") {
       return await sendWanker(chatId);
     } else if (status === "failed") {
-      return sendMessage(chatId, "payment failed");
+      return sendFail(chatId);
     } else {
       setTimeout(() => {
         pollPayment(id, chatId);
@@ -62,6 +62,7 @@ export async function pay(req: RequestBody<TelegramMessageResponse>) {
           chatId,
           `Oops, something went wrong .Please try again later.`
         );
+        await sendFail(chatId)
       }
     }
   }
