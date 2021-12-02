@@ -19,22 +19,24 @@ export async function pay(req: RequestBody<TelegramMessageResponse>) {
   if (beneficiary && amount) {
     // if details exist then we user is registed, otherwise ask them to register
     const deets = await getDeets(req, beneficiary[0]);
-    console.info({ deets })
-    const user = Constants.demoUsers.find((u) => u.username === beneficiary[0]);
 
-    if (user) {
+    const user = Constants.demoUsers.find((u) => u.username === beneficiary[0]);
+    if (!deets.accountNumber || !deets.sortCode) {
+      return await sendMessage(chatId, `uh oh. 👀 Looks like @${beneficiary[0]} is missing bank details.`)
+    } else {
+
       await sendMessage(
         chatId,
         `Understood.🤑\nInitialising payment...\n- Amount: ${amount[0]}\n- To: @${beneficiary[0]}`
       );
-
+  
       try {
         const res = await createPayment({
-          beneficiaryName: user.username,
-          sortCode: user.sort_code,
-          accountNumber: user.account_number,
+          beneficiaryName: beneficiary[0],
+          sortCode: deets.sortCode,
+          accountNumber: deets.accountNumber,
         });
-
+  
         await sendMessage(
           chatId,
           `💸 Payment initialised, please click on the link bellow to authorize your payment.\n\n<a href="${res.hpp_url}">Authorize</a>`
@@ -45,11 +47,9 @@ export async function pay(req: RequestBody<TelegramMessageResponse>) {
           `Oops, something went wrong .Please try again later.`
         );
       }
-    } else {
-      await sendMessage(
-        chatId,
-        `Sorry. User @${beneficiary} has no payment information associated to his account.\nPlease use the command "/register" on TrueLayer_bot chat.`
-      );
     }
+
+
+    
   }
 }
