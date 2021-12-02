@@ -11,6 +11,8 @@ async function pollPayment(id: string, chatId: number) {
     console.info({ status });
     if (status === "succeeded" || status === "authorized") {
       return await sendWanker(chatId);
+    } else if (status === "failed") {
+      return sendMessage(chatId, "payment failed");
     } else {
       setTimeout(() => {
         pollPayment(id, chatId);
