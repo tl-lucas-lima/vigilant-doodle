@@ -1,6 +1,7 @@
 import { RequestBody } from ".";
 import { Constants } from "../common/constants";
 import { getChatId } from "../common/getChatId";
+import { getDeets } from "../common/getDeets";
 import { sendMessage } from "../common/sendMessage";
 import { TelegramMessageResponse } from "../models/TelegramMessageResponse";
 import { createPayment } from "../services/paymentService";
@@ -16,6 +17,9 @@ export async function pay(req: RequestBody<TelegramMessageResponse>) {
   const beneficiary = message.match(/(?!@)\w+$/);
 
   if (beneficiary && amount) {
+    // if details exist then we user is registed, otherwise ask them to register
+    const deets = await getDeets(req, beneficiary[0]);
+    console.info({ deets })
     const user = Constants.demoUsers.find((u) => u.username === beneficiary[0]);
 
     if (user) {

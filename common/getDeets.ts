@@ -3,10 +3,10 @@ import { TelegramMessageResponse } from "../models/TelegramMessageResponse";
 import { getAccountNumber } from "./getAccountNumber";
 import { getSortCode } from "./getSortCode";
 
-export async function getDeets(req: RequestBody<TelegramMessageResponse>) {
+export async function getDeets(req: RequestBody<TelegramMessageResponse>, username: string) {
   try {
-    const accountNumber = await getAccountNumber(req);
-    const sortCode = await getSortCode(req);
+    const accountNumber = await getAccountNumber(req, username);
+    const sortCode = await getSortCode(req, username);
 
     return {
       accountNumber,
