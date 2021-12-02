@@ -7,7 +7,7 @@ import { createClient } from "redis";
 const app = express();
 
 export const client = createClient({
-  url: constants.RedisUrl,
+  url: Constants.RedisUrl,
 });
 
 const { Port, TelegramAPI, WebhookURI } = Constants;
@@ -49,7 +49,7 @@ const init = async () => {
       await botConnect(serverUrl);
     });
   } catch (error) {
-    throw new Error("Failed to initialise ngrok.");
+    throw new Error("Failed to start server");
   }
 };
 
