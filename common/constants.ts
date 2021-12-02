@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const { TELEGRAM_BOT_TOKEN, PORT, PLATFORM, REDIS_URL } = process.env;
+const { TELEGRAM_BOT_TOKEN, PORT, PLATFORM, REDIS_URL, SERVER_URL } = process.env;
 
 export class Constants {
   public static TelegramBotToken: string = TELEGRAM_BOT_TOKEN || "";
@@ -12,6 +12,7 @@ export class Constants {
   public static PaymentServiceURI: string = `https://tl-lucas-mobile-backend.herokuapp.com`;
   public static Platform: string = PLATFORM || "";
   public static RedisUrl: string = REDIS_URL || "";
+  public static ServerUrl: string = SERVER_URL || "https://truehack-pay-chat.herokuapp.com"
   public static demoUsers = [
     {
       username: "csuryapandian",

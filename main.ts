@@ -10,7 +10,7 @@ export const client = createClient({
   url: Constants.RedisUrl,
 });
 
-const { Port, TelegramAPI, WebhookURI } = Constants;
+const { Port, TelegramAPI, WebhookURI, ServerUrl } = Constants;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,7 +29,7 @@ const botConnect = async (serverUrl: string) => {
 const init = async () => {
   try {
     
-    let serverUrl = "https://truelayer-bot.herokuapp.com";
+    let serverUrl = ServerUrl;
     console.log(`Webhook URI generated: ${serverUrl}`);
 
     app.get("/", (req, res) => {
