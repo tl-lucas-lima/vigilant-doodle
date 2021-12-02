@@ -6,11 +6,11 @@ import { createClient } from "redis";
 
 const app = express();
 
-export const client = createClient({
-  url: Constants.RedisUrl,
-});
+const { Port, TelegramAPI, WebhookURI, ServerUrl, RedisUrl } = Constants;
 
-const { Port, TelegramAPI, WebhookURI, ServerUrl } = Constants;
+export const client = createClient({
+  url: RedisUrl,
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -30,12 +30,13 @@ const init = async () => {
   try {
     // Temporary generates a ngrok uri to be set as the webhook uri.
     let serverUrl: string;
-    if (Constants.Platform === "HEROKU") {
+    if (ServerUrl) {
       serverUrl = ServerUrl;
     } else {
       const { default: ngrok } = await import("ngrok");
       serverUrl = await ngrok.connect(Port);
     }
+
     console.log(`Webhook URI generated: ${serverUrl}`);
 
     app.get("/", (req, res) => {
