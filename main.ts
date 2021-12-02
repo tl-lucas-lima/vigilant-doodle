@@ -28,8 +28,14 @@ const botConnect = async (serverUrl: string) => {
 
 const init = async () => {
   try {
-    
-    let serverUrl = ServerUrl;
+    // Temporary generates a ngrok uri to be set as the webhook uri.
+    let serverUrl: string;
+    if (Constants.Platform === "HEROKU") {
+      serverUrl = ServerUrl;
+    } else {
+      const { default: ngrok } = await import("ngrok");
+      serverUrl = await ngrok.connect(Port);
+    }
     console.log(`Webhook URI generated: ${serverUrl}`);
 
     app.get("/", (req, res) => {
