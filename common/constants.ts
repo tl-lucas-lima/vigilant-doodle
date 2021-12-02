@@ -10,7 +10,7 @@ export class Constants {
   public static Port: number = Number(PORT) || 5000;
   public static WebhookURI: string = `/webhook/${this.TelegramBotToken}`;
   public static PaymentServiceURI: string = `https://tl-lucas-mobile-backend.herokuapp.com`;
-  public static Platform: string = process.env.PLATFORM || "";
+  public static Platform: string = PLATFORM || "";
   public static demoUsers = [
     {
       username: "csuryapandian",
@@ -40,4 +40,8 @@ export class Constants {
   ];
 }
 
-console.log("printing constants", Constants.TelegramBotToken, Constants.Platform);
+console.log(
+  "printing constants",
+  Constants.TelegramBotToken,
+  Constants.Platform
+);
