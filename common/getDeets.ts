@@ -8,11 +8,9 @@ export async function getDeets(req: RequestBody<TelegramMessageResponse>) {
     const accountNumber = await getAccountNumber(req);
     const sortCode = await getSortCode(req);
 
-    const _accountNumber = JSON.parse(accountNumber ?? "");
-    const _sortCode = JSON.parse(sortCode ?? "");
     return {
-      accountNumber: _accountNumber,
-      sortCode: _sortCode,
+      accountNumber,
+      sortCode,
     };
   } catch (e) {
     return {
