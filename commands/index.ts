@@ -14,6 +14,8 @@ export interface RequestBody<T> extends Request {
   body: T;
 }
 
+let f = { }
+
 export async function commands(req: RequestBody<TelegramMessageResponse>) {
   const message = req.body.message.text.toLocaleLowerCase();
 
@@ -23,6 +25,7 @@ export async function commands(req: RequestBody<TelegramMessageResponse>) {
 
   switch (message) {
     case "/start":
+      
       return start(req);
     case "/help":
       return help(req);

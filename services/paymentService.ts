@@ -11,3 +11,8 @@ export const createPayment = async (
   );
   return res.data;
 };
+
+export const getPayment = async (paymentId: string): Promise<CreatePaymentResponse> => {
+  const res = await paymentClient.get(`/v3/payment/${paymentId}`);
+  return res.data;
+};
