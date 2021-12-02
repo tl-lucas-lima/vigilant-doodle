@@ -20,6 +20,7 @@ const sortCodeValidation = Yup.string()
 
 export async function fallback(req: RequestBody<TelegramMessageResponse>) {
   const state = await getState(req);
+  console.info(state)
 
   switch (state) {
     case "account_number":

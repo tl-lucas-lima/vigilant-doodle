@@ -6,7 +6,7 @@ export async function getSortCode(
   req: RequestBody<TelegramMessageResponse>
 ): Promise<string> {
   try {
-    const sortCode = await client.get(`sort_code:${req.body.message.from.id}`);
+    const sortCode = await client.get(`sort_code:${req.body.message.from.username}`);
     return JSON.parse(sortCode ?? "");
   } catch (e) {
     return "";

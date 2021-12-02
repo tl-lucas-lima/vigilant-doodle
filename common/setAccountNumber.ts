@@ -7,7 +7,7 @@ export async function setAccountNumber(
 ) {
   try {
     return await client.set(
-      `account_number:${req.body.message.from.id}`,
+      `account_number:${req.body.message.from.username}`,
       JSON.stringify(req.body.message.text)
     );
   } catch (e) {

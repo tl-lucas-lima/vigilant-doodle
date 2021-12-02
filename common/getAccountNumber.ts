@@ -6,9 +6,8 @@ export async function getAccountNumber(
   req: RequestBody<TelegramMessageResponse>
 ): Promise<string> {
   try {
-    console.info(req.body.message)
     const accountNumber = await client.get(
-      `account_number:${req.body.message.from.id}`
+      `account_number:${req.body.message.from.username}`
     );
     return JSON.parse(accountNumber ?? "");
   } catch (e) {

@@ -30,7 +30,7 @@ export async function commands(req: RequestBody<TelegramMessageResponse>) {
       return topup(req);
     case "/register":
       return register(req);
-    case "/deets":
+    case "/details":
       return deets(req)
     default:
       return fallback(req);

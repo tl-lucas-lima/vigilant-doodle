@@ -6,7 +6,7 @@ export async function setSortCode(
   req: RequestBody<TelegramMessageResponse>
 ) {
   return await client.set(
-    `sort_code:${req.body.message.from.id}`,
+    `sort_code:${req.body.message.from.username}`,
     JSON.stringify(req.body.message.text)
   );
 }

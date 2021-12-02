@@ -8,10 +8,21 @@ import { TelegramMessageResponse } from "../models/TelegramMessageResponse";
 export async function deets(req: RequestBody<TelegramMessageResponse>) {
   const accountNumber = await getAccountNumber(req);
   const sortCode = await getSortCode(req);
-  return await sendMessage(
-    getChatId(req),
-    `We got your deets:\n\naccount-number: ${JSON.parse(
-      accountNumber ?? ""
-    )}\nsort-code: ${JSON.parse(sortCode ?? "")}\n\nIf this is incorrect please run the /register command and you can re-register your bank details.`
-  );
+  if (req.body.message.chat.type !== "private") {
+    return await sendMessage(
+      getChatId(req),
+      "Please call this from private chat with app..."
+    );
+  } else {
+    if (!accountNumber || !sortCode) {
+      return await sendMessage(
+        getChatId(req),
+        `Looks like we don't have all your details, please use /register to finsh your setup`
+      ); 
+    }
+    return await sendMessage(
+      getChatId(req),
+      `We got your details:\n\naccount-number: ${accountNumber}\nsort-code: ${sortCode}\n\nIf this is incorrect please run the /register command and you can re-register your bank details.`
+    );
+  }
 }

@@ -21,6 +21,7 @@ export interface Chat {
 export interface From {
   id: number;
   is_bot: boolean;
+  username: string
   first_name: string;
   last_name: string;
   language_code: string;

@@ -8,7 +8,7 @@ export async function setState(
   state: Flows
 ) {
   return await client.set(
-    `state:${req.body.message.from.id}`,
+    `state:${req.body.message.from.username}`,
     JSON.stringify(state)
   );
 }
