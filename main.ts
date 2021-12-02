@@ -6,7 +6,9 @@ import { createClient } from "redis";
 
 const app = express();
 
-export const client = createClient();
+export const client = createClient({
+  url: constants.RedisUrl,
+});
 
 const { Port, TelegramAPI, WebhookURI } = Constants;
 
@@ -35,6 +37,7 @@ const init = async () => {
     });
 
     await client.connect();
+
     app.post(WebhookURI, botMiddleware, async (_req, res) => {
       return res.send().status(200);
     });
