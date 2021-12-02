@@ -13,8 +13,7 @@ export class Constants {
   public static PaymentServiceURI: string = `https://tl-lucas-mobile-backend.herokuapp.com`;
   public static Platform: string = PLATFORM || "";
   public static RedisUrl: string = REDIS_URL || "";
-  public static ServerUrl: string =
-    SERVER_URL || "https://truehack-pay-chat.herokuapp.com";
+  public static ServerUrl: string = SERVER_URL || "";
   public static demoUsers = [
     {
       username: "csuryapandian",
