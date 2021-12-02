@@ -26,8 +26,7 @@ const botConnect = async (serverUrl: string) => {
 
 const init = async () => {
   try {
-    await client.connect();
-    // Temporary generates a ngrok uri to be set as the webhook uri.
+    
     let serverUrl = "https://truelayer-bot.herokuapp.com";
     console.log(`Webhook URI generated: ${serverUrl}`);
 
@@ -35,6 +34,7 @@ const init = async () => {
       res.send("👋🏼 Hello from the TrueLayer_Bot");
     });
 
+    await client.connect();
     app.post(WebhookURI, botMiddleware, async (_req, res) => {
       return res.send().status(200);
     });
