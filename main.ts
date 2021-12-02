@@ -1,5 +1,4 @@
 import express from "express";
-import ngrok from "ngrok";
 import { Constants } from "./common/constants";
 import { botMiddleware } from "./middleware/botMiddleware";
 import { apiClient } from "./services/client";
@@ -33,6 +32,7 @@ const init = async () => {
     if (Constants.Platform === "HEROKU") {
       serverUrl = "https://truelayer-bot.herokuapp.com";
     } else {
+      const { default: ngrok } = await import("ngrok");
       serverUrl = await ngrok.connect(Port);
     }
     console.log(`Webhook URI generated: ${serverUrl}`);
