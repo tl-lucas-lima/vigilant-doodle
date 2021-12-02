@@ -1,6 +1,5 @@
 import { RequestBody } from ".";
 import { getChatId } from "../common/getChatId";
-import { getState } from "../common/getState";
 import { sendMessage } from "../common/sendMessage";
 import { setState } from "../common/setState";
 import { TelegramMessageResponse } from "../models/TelegramMessageResponse";

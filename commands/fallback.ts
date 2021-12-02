@@ -9,8 +9,14 @@ import { setSortCode } from "../common/setSortCode";
 import { setState } from "../common/setState";
 import { TelegramMessageResponse } from "../models/TelegramMessageResponse";
 
-const accountNumberValidation = Yup.string().min(8).max(8);
-const sortCodeValidation = Yup.string().min(6).max(6);
+const accountNumberValidation = Yup.string()
+  .min(8)
+  .max(8)
+  .matches(/^[0-9]+$/);
+const sortCodeValidation = Yup.string()
+  .min(6)
+  .max(6)
+  .matches(/^[0-9]+$/);
 
 export async function fallback(req: RequestBody<TelegramMessageResponse>) {
   const state = await getState(req);
