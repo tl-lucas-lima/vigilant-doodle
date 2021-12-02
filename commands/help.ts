@@ -6,6 +6,6 @@ import { TelegramMessageResponse } from "../models/TelegramMessageResponse";
 export async function help(req: RequestBody<TelegramMessageResponse>) {
   return await sendMessage(
     getChatId(req),
-    `Hey 👋🏼\nDo you need some help? Don't worry.\n\nHere are some commands you can use:\n /pay £(amount) to @(person)`
+    `Hey 👋🏼\nDo you need some help? Don't worry.\n\nHere are some commands you can use:\n /pay £(amount) to @(person)\n/register\n/details`
   );
 }
